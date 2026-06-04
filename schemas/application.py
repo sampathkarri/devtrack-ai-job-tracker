@@ -12,3 +12,9 @@ class ApplicationUpdate(BaseModel):
     role: str
     location: Optional[str] = None
     jd_text: Optional[str] = None
+class NoteCreate(BaseModel):
+    content: str
+from models.application import ApplicationStatus
+
+class StatusUpdate(BaseModel):
+    new_status: ApplicationStatus

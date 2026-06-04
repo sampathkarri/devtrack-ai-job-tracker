@@ -3,10 +3,18 @@ from sqlalchemy.orm import Session
 
 from database import get_db
 
-from models.application import Application
+from models.application import (
+    Application,
+    Note,
+    StatusLog
+)
 from models.user import User
 
-from schemas.application import ApplicationCreate
+from schemas.application import (
+    ApplicationCreate,
+    ApplicationUpdate,
+    NoteCreate
+)
 
 from services.auth_service import get_current_user
 
@@ -123,4 +131,100 @@ def delete_application(
 
     return {
         "message": "Application deleted successfully"
+    }
+@router.post("/{application_id}/notes")
+def add_note(
+    application_id: int,
+    note_data: NoteCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    application = db.query(Application).filter(
+        Application.id == application_id,
+        Application.user_id == current_user.id
+    ).first()
+
+    if not application:
+        raise HTTPException(
+            status_code=404,
+            detail="Application not found"
+        )
+
+    note = Note(
+        application_id=application.id,
+        content=note_data.content
+    )
+
+    db.add(note)
+
+    db.commit()
+
+    db.refresh(note)
+
+    return {
+        "message": "Note added successfully",
+        "note_id": note.id
+    }
+@router.get("/{application_id}/notes")
+def get_notes(
+    application_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    application = db.query(Application).filter(
+        Application.id == application_id,
+        Application.user_id == current_user.id
+    ).first()
+
+    if not application:
+        raise HTTPException(
+            status_code=404,
+            detail="Application not found"
+        )
+
+    notes = db.query(Note).filter(
+        Note.application_id == application_id
+    ).all()
+
+    return notes
+from schemas.application import (
+    ApplicationCreate,
+    ApplicationUpdate,
+    NoteCreate,
+    StatusUpdate
+)
+@router.post("/{application_id}/status")
+def update_status(
+    application_id: int,
+    status_data: StatusUpdate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    application = db.query(Application).filter(
+        Application.id == application_id,
+        Application.user_id == current_user.id
+    ).first()
+
+    if not application:
+        raise HTTPException(
+            status_code=404,
+            detail="Application not found"
+        )
+
+    old_status = application.status
+
+    application.status = status_data.new_status
+
+    status_log = StatusLog(
+        application_id=application.id,
+        old_status=old_status,
+        new_status=status_data.new_status
+    )
+
+    db.add(status_log)
+
+    db.commit()
+
+    return {
+        "message": "Status updated successfully"
     }
