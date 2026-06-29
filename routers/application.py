@@ -12,7 +12,8 @@ from schemas.application import (
 )
 
 from services.auth_service import get_current_user
-
+from schemas.application import MatchRequest
+from services.ai_service import calculate_match_score
 
 router = APIRouter(
     prefix="/applications",
@@ -156,4 +157,16 @@ def delete_application(
 
     return {
         "message": "Application deleted successfully"
+    }
+@router.post("/match-score")
+def get_match_score(
+    request: MatchRequest
+):
+    score = calculate_match_score(
+        request.resume_text,
+        request.job_description
+    )
+
+    return {
+        "match_score": score
     }

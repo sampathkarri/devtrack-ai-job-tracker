@@ -18,3 +18,6 @@ from models.application import ApplicationStatus
 
 class StatusUpdate(BaseModel):
     new_status: ApplicationStatus
+class MatchRequest(BaseModel):
+    resume_text: str
+    job_description: str
