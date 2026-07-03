@@ -27,7 +27,7 @@
 <div id="dashboardPage" class="container" style="display:none;">
 
     <h1>Dashboard</h1>
-
+    <button onclick="logout()">Logout</button>
     <h3>Welcome!</h3>
 
     <p>Total Applications:
@@ -49,6 +49,32 @@
     <p>Rejected:
         <span id="rejected">0</span>
     </p>
+    <h2>Add Application</h2>
+
+<input
+    type="text"
+    id="company"
+    placeholder="Company">
+
+<input
+    type="text"
+    id="role"
+    placeholder="Role">
+
+<input
+    type="text"
+    id="location"
+    placeholder="Location">
+
+<textarea
+    id="jd"
+    placeholder="Job Description"
+    rows="5"
+    style="width:100%;margin-top:10px;"></textarea>
+
+<button onclick="addApplication()">
+    Add Application
+</button>
     <h2>My Applications</h2>
 
 <table id="applicationTable" border="1" style="width:100%; margin-top:20px;">
@@ -57,6 +83,7 @@
             <th>Company</th>
             <th>Role</th>
             <th>Status</th>
+            <th>Action</th>
         </tr>
     </thead>
 
