@@ -1,120 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DevTrack</title>
+
     <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
 
-<div id="loginPage" class="container">
+    <!-- ================= LOGIN PAGE ================= -->
 
-    <h1>DevTrack</h1>
-    <p>AI Powered Job Tracker</p>
+    <div id="loginPage" class="container">
 
-    <h2>Login</h2>
+        <h1>DevTrack</h1>
+        <p>AI Powered Job Tracker</p>
 
-    <input type="email" id="email" placeholder="Email">
+        <h2>Login</h2>
 
-    <input type="password" id="password" placeholder="Password">
+        <input
+            type="email"
+            id="email"
+            placeholder="Email">
 
-    <button onclick="login()">Login</button>
+        <input
+            type="password"
+            id="password"
+            placeholder="Password">
 
-</div>
+        <button onclick="login()">
+            Login
+        </button>
+
+    </div>
 
 
-<div id="dashboardPage" class="container" style="display:none;">
+    <!-- ================= DASHBOARD ================= -->
 
-    <h1>Dashboard</h1>
-    <button onclick="logout()">Logout</button>
-    <h3>Welcome!</h3>
+    <div id="dashboardPage" class="container" style="display:none;">
 
-    <p>Total Applications:
-        <span id="total">0</span>
-    </p>
+        <h1>Dashboard</h1>
 
-    <p>Applied:
-        <span id="applied">0</span>
-    </p>
+        <button onclick="logout()">
+            Logout
+        </button>
 
-    <p>Interview:
-        <span id="interview">0</span>
-    </p>
+        <h3>Welcome!</h3>
 
-    <p>Offer:
-        <span id="offer">0</span>
-    </p>
+        <!-- Dashboard Cards -->
 
-    <p>Rejected:
-        <span id="rejected">0</span>
-    </p>
-    <h2>Add Application</h2>
+        <div class="cards">
 
-<input
-    type="text"
-    id="company"
-    placeholder="Company">
+            <div class="card">
+                <h3>Total</h3>
+                <h1 id="total">0</h1>
+            </div>
 
-<input
-    type="text"
-    id="role"
-    placeholder="Role">
+            <div class="card">
+                <h3>Applied</h3>
+                <h1 id="applied">0</h1>
+            </div>
 
-<input
-    type="text"
-    id="location"
-    placeholder="Location">
+            <div class="card">
+                <h3>Interview</h3>
+                <h1 id="interview">0</h1>
+            </div>
 
-<textarea
-    id="jd"
-    placeholder="Job Description"
-    rows="5"
-    style="width:100%;margin-top:10px;"></textarea>
+            <div class="card">
+                <h3>Offer</h3>
+                <h1 id="offer">0</h1>
+            </div>
 
-<button id="saveButton" onclick="addApplication()">
-    Add Application
-</button>
-<input
-    type="text"
-    id="search"
-    placeholder="Search Company..."
-    onkeyup="loadApplications()">
-    <h2>My Applications</h2>
+            <div class="card">
+                <h3>Rejected</h3>
+                <h1 id="rejected">0</h1>
+            </div>
 
-<table id="applicationTable" border="1" style="width:100%; margin-top:20px;">
-    <thead>
-        <tr>
-            <th>Company</th>
-            <th>Role</th>
-            <th>Status</th>
-            <th>Action</th>
-        </tr>
-    </thead>
+        </div>
 
-    <tbody id="applicationBody">
+        <!-- Add Application -->
 
-    </tbody>
-</table>
+        <h2>Add Application</h2>
 
-</div>
+        <input
+            type="text"
+            id="company"
+            placeholder="Company">
 
-<script src="js/app.js"></script>
-<div style="margin-top:20px; text-align:center;">
+        <input
+            type="text"
+            id="role"
+            placeholder="Role">
 
-    <button onclick="previousPage()">
-        Previous
-    </button>
+        <input
+            type="text"
+            id="location"
+            placeholder="Location">
 
-    <span id="pageNumber" style="margin:0 20px;">
-        Page 1
-    </span>
+        <textarea
+            id="jd"
+            rows="5"
+            placeholder="Job Description"></textarea>
 
-    <button onclick="nextPage()">
-        Next
-    </button>
+        <button
+            id="saveButton"
+            onclick="addApplication()">
+            Add Application
+        </button>
 
-</div>
+        <!-- Search -->
+
+        <input
+            type="text"
+            id="search"
+            placeholder="Search Company..."
+            onkeyup="loadApplications()">
+
+        <!-- Applications Table -->
+
+        <h2>My Applications</h2>
+
+        <table id="applicationTable">
+
+            <thead>
+
+                <tr>
+                    <th>Company</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="applicationBody">
+
+            </tbody>
+
+        </table>
+
+        <!-- Pagination -->
+
+        <div class="pagination">
+
+            <button onclick="previousPage()">
+                Previous
+            </button>
+
+            <span id="pageNumber">
+                Page 1
+            </span>
+
+            <button onclick="nextPage()">
+                Next
+            </button>
+
+        </div>
+
+    </div>
+
+    <script src="js/app.js"></script>
 
 </body>
+
 </html>
