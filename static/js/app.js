@@ -1,4 +1,6 @@
 let accessToken = null;
+let currentPage = 1;
+const limit = 5;
 
 // ==================== LOGIN ====================
 
@@ -65,12 +67,16 @@ async function loadDashboard() {
 // ==================== LOAD APPLICATIONS ====================
 
 async function loadApplications() {
+    const search = document.getElementById("search").value;
 
-    const response = await fetch("http://127.0.0.1:8001/applications/", {
+    const response = await fetch(
+    `http://127.0.0.1:8001/applications/?search=${encodeURIComponent(search)}&page=${currentPage}&limit=${limit}`,
+    {
         headers: {
             "Authorization": "Bearer " + accessToken
         }
-    });
+    }
+);
 
     const applications = await response.json();
 
@@ -294,6 +300,33 @@ window.onload = function () {
         document.getElementById("dashboardPage").style.display = "block";
 
         loadDashboard();
+
+    }
+
+}
+// ==================== PAGINATION ====================
+
+function nextPage() {
+
+    currentPage++;
+
+    document.getElementById("pageNumber").innerText =
+        `Page ${currentPage}`;
+
+    loadApplications();
+
+}
+
+function previousPage() {
+
+    if (currentPage > 1) {
+
+        currentPage--;
+
+        document.getElementById("pageNumber").innerText =
+            `Page ${currentPage}`;
+
+        loadApplications();
 
     }
 

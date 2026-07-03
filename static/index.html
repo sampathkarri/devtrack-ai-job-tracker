@@ -75,6 +75,11 @@
 <button id="saveButton" onclick="addApplication()">
     Add Application
 </button>
+<input
+    type="text"
+    id="search"
+    placeholder="Search Company..."
+    onkeyup="loadApplications()">
     <h2>My Applications</h2>
 
 <table id="applicationTable" border="1" style="width:100%; margin-top:20px;">
@@ -95,6 +100,21 @@
 </div>
 
 <script src="js/app.js"></script>
+<div style="margin-top:20px; text-align:center;">
+
+    <button onclick="previousPage()">
+        Previous
+    </button>
+
+    <span id="pageNumber" style="margin:0 20px;">
+        Page 1
+    </span>
+
+    <button onclick="nextPage()">
+        Next
+    </button>
+
+</div>
 
 </body>
 </html>
