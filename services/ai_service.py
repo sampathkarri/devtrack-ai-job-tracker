@@ -23,3 +23,16 @@ def calculate_match_score(
     score = round(similarity * 100, 2)
 
     return score
+import joblib
+
+# Load trained model and vectorizer
+model = joblib.load("saved_models/status_model.pkl")
+vectorizer = joblib.load("saved_models/vectorizer.pkl")
+
+
+def predict_status(note: str):
+    vector = vectorizer.transform([note])
+
+    prediction = model.predict(vector)
+
+    return prediction[0]
