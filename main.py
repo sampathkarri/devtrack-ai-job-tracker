@@ -9,14 +9,14 @@ from models.application import (
     Note,
     StatusLog
 )
-
+from fastapi.staticfiles import StaticFiles
 from routers.auth import router as auth_router
 from routers.application import router as application_router
 from routers.dashboard import router as dashboard_router
 
 from routers.ai import router as ai_router
 app = FastAPI()
-
+app.mount("/static", StaticFiles(directory="static"), name="static")
 app.include_router(auth_router)
 app.include_router(application_router)
 app.include_router(dashboard_router)
