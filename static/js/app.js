@@ -85,7 +85,18 @@ async function loadApplications() {
             <td>${app.company}</td>
             <td>${app.role}</td>
             <td>${app.status}</td>
+
             <td>
+                <button onclick="editApplication(
+                    ${app.id},
+                    '${app.company}',
+                    '${app.role}',
+                    '${app.location}',
+                    '${app.jd_text}'
+                )">
+                    Edit
+                </button>
+
                 <button onclick="deleteApplication(${app.id})">
                     Delete
                 </button>
@@ -180,6 +191,81 @@ async function deleteApplication(id) {
     }
 
 }
+// ==================== EDIT APPLICATION ====================
+
+let editingApplicationId = null;
+
+function editApplication(id, company, role, location, jd_text) {
+
+    editingApplicationId = id;
+
+    document.getElementById("company").value = company;
+    document.getElementById("role").value = role;
+    document.getElementById("location").value = location;
+    document.getElementById("jd").value = jd_text;
+
+    document.getElementById("saveButton").innerText = "Update Application";
+
+    document.getElementById("saveButton").setAttribute(
+        "onclick",
+        "updateApplication()"
+    );
+
+}
+// ==================== UPDATE APPLICATION ====================
+
+async function updateApplication() {
+
+    const company = document.getElementById("company").value;
+    const role = document.getElementById("role").value;
+    const location = document.getElementById("location").value;
+    const jd = document.getElementById("jd").value;
+
+    const response = await fetch(
+        `http://127.0.0.1:8001/applications/${editingApplicationId}`,
+        {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + accessToken
+            },
+            body: JSON.stringify({
+                company: company,
+                role: role,
+                location: location,
+                jd_text: jd
+            })
+        }
+    );
+
+    const data = await response.json();
+
+    if (response.ok) {
+
+        alert("Application Updated Successfully!");
+
+        editingApplicationId = null;
+
+        document.getElementById("company").value = "";
+        document.getElementById("role").value = "";
+        document.getElementById("location").value = "";
+        document.getElementById("jd").value = "";
+
+        document.getElementById("saveButton").innerText = "Add Application";
+        document.getElementById("saveButton").setAttribute(
+            "onclick",
+            "addApplication()"
+        );
+
+        loadDashboard();
+
+    } else {
+
+        alert(JSON.stringify(data));
+
+    }
+
+}
 
 // ==================== LOGOUT ====================
 
@@ -211,4 +297,4 @@ window.onload = function () {
 
     }
 
-};
+}
