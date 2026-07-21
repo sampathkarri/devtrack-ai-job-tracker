@@ -1,168 +1,279 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevTrack</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DevTrack | AI Powered Job Tracker</title>
 
-    <link rel="stylesheet" href="css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
-
 <body>
+  <div class="app-shell">
+    <!-- LOGIN PAGE -->
+    <section id="loginPage" class="auth-shell">
+      <div class="auth-backdrop"></div>
 
-    <!-- ================= LOGIN PAGE ================= -->
-
-    <div id="loginPage" class="container">
-
-        <h1>DevTrack</h1>
-        <p>AI Powered Job Tracker</p>
-
-        <h2>Login</h2>
-
-        <input
-            type="email"
-            id="email"
-            placeholder="Email">
-
-        <input
-            type="password"
-            id="password"
-            placeholder="Password">
-
-        <button onclick="login()">
-            Login
-        </button>
-
-    </div>
-
-
-    <!-- ================= DASHBOARD ================= -->
-
-    <div id="dashboardPage" class="container" style="display:none;">
-
-        <h1>Dashboard</h1>
-
-        <button onclick="logout()">
-            Logout
-        </button>
-
-        <h3>Welcome!</h3>
-
-        <!-- Dashboard Cards -->
-
-        <div class="cards">
-
-            <div class="card">
-                <h3>Total</h3>
-                <h1 id="total">0</h1>
-            </div>
-
-            <div class="card">
-                <h3>Applied</h3>
-                <h1 id="applied">0</h1>
-            </div>
-
-            <div class="card">
-                <h3>Interview</h3>
-                <h1 id="interview">0</h1>
-            </div>
-
-            <div class="card">
-                <h3>Offer</h3>
-                <h1 id="offer">0</h1>
-            </div>
-
-            <div class="card">
-                <h3>Rejected</h3>
-                <h1 id="rejected">0</h1>
-            </div>
-
+      <div class="auth-panel">
+        <div class="brand-block">
+          <div class="brand-mark">D</div>
+          <div>
+            <h1 class="brand-title">DevTrack</h1>
+            <p class="brand-subtitle">AI Powered Job Tracker</p>
+          </div>
         </div>
 
-        <!-- Add Application -->
-
-        <h2>Add Application</h2>
-
-        <input
-            type="text"
-            id="company"
-            placeholder="Company">
-
-        <input
-            type="text"
-            id="role"
-            placeholder="Role">
-
-        <input
-            type="text"
-            id="location"
-            placeholder="Location">
-
-        <textarea
-            id="jd"
-            rows="5"
-            placeholder="Job Description"></textarea>
-
-        <button
-            id="saveButton"
-            onclick="addApplication()">
-            Add Application
-        </button>
-
-        <!-- Search -->
-
-        <input
-            type="text"
-            id="search"
-            placeholder="Search Company..."
-            onkeyup="loadApplications()">
-
-        <!-- Applications Table -->
-
-        <h2>My Applications</h2>
-
-        <table id="applicationTable">
-
-            <thead>
-
-                <tr>
-                    <th>Company</th>
-                    <th>Role</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-
-            </thead>
-
-            <tbody id="applicationBody">
-
-            </tbody>
-
-        </table>
-
-        <!-- Pagination -->
-
-        <div class="pagination">
-
-            <button onclick="previousPage()">
-                Previous
-            </button>
-
-            <span id="pageNumber">
-                Page 1
-            </span>
-
-            <button onclick="nextPage()">
-                Next
-            </button>
-
+        <div class="auth-copy">
+          <span class="eyebrow">Career Command Center</span>
+          <h2>Welcome back</h2>
+          <p>
+            Manage applications, recruiter notes, interview stages, and next actions
+            from one polished dashboard.
+          </p>
         </div>
 
-    </div>
+        <form class="auth-form" onsubmit="event.preventDefault(); login();">
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Enter your email" required />
+          </div>
 
-    <script src="js/app.js"></script>
+          <div class="field">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter your password" required />
+          </div>
 
+          <button class="primary-btn full-btn" type="submit">Login to DevTrack</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section id="dashboardPage" class="dashboard-shell" style="display: none;">
+      <aside class="sidebar">
+        <div class="sidebar-top">
+          <div class="brand-block">
+            <div class="brand-mark">D</div>
+            <div>
+              <h2 class="sidebar-brand">DevTrack</h2>
+              <p class="sidebar-caption">Smart job pipeline</p>
+            </div>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav">
+          <a href="#overview" class="nav-item active">Overview</a>
+          <a href="#applications" class="nav-item">Applications</a>
+          <a href="#insights" class="nav-item">AI Insights</a>
+          <a href="#manage" class="nav-item">Add Job</a>
+        </nav>
+
+        <div class="sidebar-card">
+          <p class="sidebar-card-label">Tracking Mode</p>
+          <h3>Stay consistent</h3>
+          <p>
+            Review statuses daily, follow up faster, and keep your pipeline clean.
+          </p>
+        </div>
+      </aside>
+
+      <main class="dashboard-main">
+        <header class="dashboard-header">
+          <div>
+            <p class="eyebrow">Dashboard</p>
+            <h1>Welcome back</h1>
+            <p class="header-subtext">
+              Track every application, interview, offer, and recruiter update in one place.
+            </p>
+          </div>
+
+          <div class="header-actions">
+            <div class="search-box">
+              <input
+                type="text"
+                id="search"
+                placeholder="Search company..."
+                onkeyup="loadApplications()"
+              />
+            </div>
+
+            <button class="secondary-btn" onclick="logout()">Logout</button>
+          </div>
+        </header>
+
+        <section id="overview" class="stats-section">
+          <article class="stat-card stat-card-total">
+            <div class="stat-top">
+              <span>Total Applications</span>
+              <span class="stat-badge">Live</span>
+            </div>
+            <h2 id="total">0</h2>
+            <p>Your complete job pipeline count</p>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-top">
+              <span>Applied</span>
+              <span class="dot dot-blue"></span>
+            </div>
+            <h2 id="applied">0</h2>
+            <p>Jobs submitted and awaiting update</p>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-top">
+              <span>Interview</span>
+              <span class="dot dot-gold"></span>
+            </div>
+            <h2 id="interview">0</h2>
+            <p>Applications currently in discussion</p>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-top">
+              <span>Offer</span>
+              <span class="dot dot-green"></span>
+            </div>
+            <h2 id="offer">0</h2>
+            <p>Positive outcomes and active offers</p>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-top">
+              <span>Rejected</span>
+              <span class="dot dot-red"></span>
+            </div>
+            <h2 id="rejected">0</h2>
+            <p>Closed applications for review</p>
+          </article>
+        </section>
+
+        <section class="content-grid">
+          <div class="left-column">
+            <section id="manage" class="panel">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Add Application</p>
+                  <h2>Create a new entry</h2>
+                </div>
+              </div>
+
+              <form class="app-form" onsubmit="event.preventDefault(); addApplication();">
+                <div class="form-grid">
+                  <div class="field">
+                    <label for="company">Company</label>
+                    <input type="text" id="company" placeholder="Ex: Google" required />
+                  </div>
+
+                  <div class="field">
+                    <label for="role">Role</label>
+                    <input type="text" id="role" placeholder="Ex: Software Engineer" required />
+                  </div>
+
+                  <div class="field field-full">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" placeholder="Ex: Bengaluru / Remote" />
+                  </div>
+
+                  <div class="field field-full">
+                    <label for="jd">Job Description</label>
+                    <textarea id="jd" rows="6" placeholder="Paste the job description here"></textarea>
+                  </div>
+                </div>
+
+                <div class="form-actions">
+                  <button id="saveButton" class="primary-btn" type="submit">
+                    Add Application
+                  </button>
+                </div>
+              </form>
+            </section>
+
+            <section id="applications" class="panel">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Applications</p>
+                  <h2>My Applications</h2>
+                </div>
+              </div>
+
+              <div class="table-wrap">
+                <table id="applicationTable">
+                  <thead>
+                    <tr>
+                      <th>Company</th>
+                      <th>Role</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="applicationBody"></tbody>
+                </table>
+              </div>
+
+              <div class="pagination">
+                <button class="secondary-btn" onclick="previousPage()">Previous</button>
+                <span id="pageNumber">Page 1</span>
+                <button class="secondary-btn" onclick="nextPage()">Next</button>
+              </div>
+            </section>
+          </div>
+
+          <div class="right-column">
+            <section id="insights" class="panel ai-panel">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">AI Insight</p>
+                  <h2>Status Suggestion</h2>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="note">Recruiter Note / Email</label>
+                <textarea
+                  id="note"
+                  rows="7"
+                  placeholder="Paste recruiter email or recruiter note here..."
+                ></textarea>
+              </div>
+
+              <button class="primary-btn full-btn" onclick="predictStatus()">
+                Predict Status
+              </button>
+
+              <div class="result-box">
+                <p class="result-label">Prediction</p>
+                <h3 id="predictionResult">Waiting for input...</h3>
+              </div>
+            </section>
+
+            <section class="panel mini-panel">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Workflow</p>
+                  <h2>Recommended flow</h2>
+                </div>
+              </div>
+
+              <ul class="flow-list">
+                <li>Add and track every application.</li>
+                <li>Paste recruiter updates for AI suggestion.</li>
+                <li>Search quickly by company name.</li>
+                <li>Review application status page by page.</li>
+              </ul>
+            </section>
+          </div>
+        </section>
+      </main>
+    </section>
+  </div>
+
+  <script src="js/app.js"></script>
 </body>
-
 </html>

@@ -18,5 +18,7 @@ def tag_suggestion(request: TagRequest):
     prediction = predict_status(request.note)
 
     return {
-        "suggested_status": prediction
-    }
+    "success": True,
+    "suggested_status": prediction,
+    "message": "Prediction completed successfully."
+}
